@@ -2,11 +2,17 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./swagger_aula.yml');
+
+
 // Permite que o Express entenda JSON no corpo da requisição
 app.use(express.json());
 
 // Permite servir arquivos HTML e JS do diretório 'public'
 app.use(express.static('public'));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Simulando um banco de dados em memória
 let dados = [

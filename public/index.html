@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <title>Teste de Requisições HTTP</title>
 </head>
+
 <body>
   <h2>Testes HTTP com ID e Corpo</h2>
 
-  <label for="idInput">ID (opcional para GET):</label><br/>
-  <input type="number" id="idInput" placeholder="Ex: 1"><br/><br/>
+  <label for="idInput">ID (opcional para GET):</label><br />
+  <input type="number" id="idInput" placeholder="Ex: 1" min="1" step="1"><br /><br />
 
-  <label for="msgInput">Mensagem (apenas para POST, PUT, PATCH):</label><br/>
-  <input type="text" id="msgInput" placeholder="Digite a mensagem"><br/><br/>
+  <label for="msgInput">Mensagem (apenas para POST, PUT, PATCH):</label><br />
+  <input type="text" id="msgInput" placeholder="Digite a mensagem"><br /><br />
 
   <button onclick="makeRequest('GET')">GET</button>
   <button onclick="makeRequest('POST')">POST</button>
@@ -26,6 +28,17 @@
     function makeRequest(method) {
       const id = document.getElementById('idInput').value.trim();
       const msg = document.getElementById('msgInput').value.trim();
+
+      if (['PUT', 'PATCH', 'DELETE'].includes(method) && !id) {
+        alert('Você precisa informar um ID para esse método.');
+        return;
+      }
+
+      // Se for POST, PUT ou PATCH e a mensagem estiver vazia, avisa
+      if (['POST', 'PUT', 'PATCH'].includes(method) && !msg) {
+        alert('Você precisa digitar uma mensagem.');
+        return;
+      }
 
       // Monta a URL
       let url = '/api/data';
@@ -63,4 +76,5 @@
     }
   </script>
 </body>
+
 </html>
