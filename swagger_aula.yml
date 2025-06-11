@@ -4,7 +4,7 @@ info:
   description: API para gerenciamento de mensagens simples
   version: 1.0.0
 servers:
-  - url: http://localhost:3000
+  - url: http://localhost:6664
     description: Servidor de desenvolvimento
 tags:
   - name: Mensagens
